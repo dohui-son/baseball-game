@@ -6,27 +6,34 @@ const Game = require('./components/Game');
 class App {
 	#game;
 
-	constructor() {
-		this.#game = new Game();
-	}
-
 	play() {
 		OutputView.printWelcome();
-		runGenerator(this.#gameHandle.bind(this));
-	}
-
-	*#gameHandle() {
 		this.#game = new Game();
-
-		while (true) {
-			const userBalls = InputView.readBalls.bind(this)(this.#userBallHandler);
-		}
+		this.#creatBall();
 	}
 
-	#userBallHandler(balls) {
+	#creatBall() {
+		this.#game.generateBalls();
+		return InputView.readBalls.bind(this)(this.#handleUserBall);
+	}
+
+	#handleUserBall(balls) {
 		this.#errorHandler('BALLS', () => {
 			Validator.validUserBalls(balls);
+			const USER_BALLS = parseInt(balls);
+			return this.#handleScore(USER_BALLS);
 		});
+	}
+
+	// #handleScore(userBall) {
+	// 	const GAME_RESULT = calculateScore(userBall);
+	// 	// printResult
+	// 	return this.#handleGame(GAME_RESULT);
+	// }
+
+	#handleGame(gameResult) {
+		console.log(gameResult);
+		//if(3스트라이크){ handleRestry()}
 	}
 
 	#errorHandler(errorType, callback) {

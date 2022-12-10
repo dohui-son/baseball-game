@@ -1,10 +1,9 @@
-const { MissionUtils } = require('@woowacourse/mission-utils');
+const MissionUtils = require('@woowacourse/mission-utils');
 
 class Game {
 	#computerBalls;
 	constructor() {
 		this.#computerBalls = [];
-		this.generateBalls();
 	}
 
 	generateBalls() {
@@ -18,3 +17,5 @@ class Game {
 		this.#computerBalls = this.computer;
 	}
 }
+
+module.exports = Game;
