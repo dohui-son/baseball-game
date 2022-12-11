@@ -35,12 +35,28 @@ class App {
 	#handleScore(userBall) {
 		const GAME_RESULT = this.#game.calculateScore(userBall);
 		OutputView.printScore(GAME_RESULT);
-		//return this.#handleGame(GAME_RESULT);
+		return this.#handleGame(GAME_RESULT);
 	}
 
 	#handleGame(gameResult) {
-		console.log(gameResult);
-		//if(3스트라이크){ handleRestry()}
+		if (gameResult['STRIK'] === 3) {
+			//return this.#queryRetry();
+		}
+		return this.#userBallHandler();
+	}
+
+	#queryRetry() {
+		InputView.readRetry.bind(this)(this.#handleRetry);
+	}
+
+	#handleRetry(retry) {
+		this.#errorHandler('RETRY', () => {
+			Validator.validRetry(retry);
+			if (retry === '1') {
+				return this.#initializeGame();
+			}
+			//return this.#endGame
+		});
 	}
 
 	#errorHandler(errorType, callback) {
