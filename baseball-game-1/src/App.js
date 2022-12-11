@@ -1,35 +1,42 @@
 const OutputView = require('./UI/OutputView');
 const InputView = require('./UI/InputView');
-const { runGenerator } = require('./utils/Generator');
+const runGenerator = require('./utils/Generator');
 const Validator = require('./utils/Validator');
 const Game = require('./components/Game');
+
 class App {
 	#game;
 
 	play() {
 		OutputView.printWelcome();
 		this.#game = new Game();
-		this.#creatBall();
+		this.#initializeGame();
 	}
 
-	#creatBall() {
+	#initializeGame() {
 		this.#game.generateBalls();
-		return InputView.readBalls.bind(this)(this.#handleUserBall);
+		this.#userBallHandler();
 	}
 
-	#handleUserBall(balls) {
+	#userBallHandler() {
+		InputView.readBalls.bind(this)(this.#generateUserBall);
+	}
+
+	#generateUserBall(balls) {
 		this.#errorHandler('BALLS', () => {
 			Validator.validUserBalls(balls);
-			const USER_BALLS = parseInt(balls);
+			const USER_BALLS = balls.split('').map((element) => {
+				return parseInt(element);
+			});
 			return this.#handleScore(USER_BALLS);
 		});
 	}
 
-	// #handleScore(userBall) {
-	// 	const GAME_RESULT = calculateScore(userBall);
-	// 	// printResult
-	// 	return this.#handleGame(GAME_RESULT);
-	// }
+	#handleScore(userBall) {
+		const GAME_RESULT = this.#game.calculateScore(userBall);
+		OutputView.printScore(GAME_RESULT);
+		//return this.#handleGame(GAME_RESULT);
+	}
 
 	#handleGame(gameResult) {
 		console.log(gameResult);

@@ -17,4 +17,4 @@ function runGenerator(generator) {
 	whileGenerates(gen, gen.next());
 }
 
-module.exports = { runGenerator };
+module.exports = runGenerator;

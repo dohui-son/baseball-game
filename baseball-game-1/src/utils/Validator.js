@@ -1,7 +1,7 @@
 const Validator = {
 	validUserBalls(balls) {
 		if (!/^[1-9]{3}$/.test(balls)) {
-			throw new Error('[ERROR] ---- ');
+			throw new Error('[ERROR]');
 		}
 		const BALLS = balls.split('');
 		const BALLS_SET = new Set(BALLS);

@@ -14,7 +14,24 @@ class Game {
 				computer.push(number);
 			}
 		}
-		this.#computerBalls = this.computer;
+		this.#computerBalls = computer;
+	}
+
+	calculateScore(userBalls) {
+		const baseballScore = { BALL: 0, STRIKE: 0 };
+		for (let index = 0; index < 3; index++) {
+			if (userBalls[index] === this.#computerBalls[index]) {
+				baseballScore['STRIKE'] += 1;
+			}
+			if (
+				userBalls[index] !== this.#computerBalls[index] &&
+				this.#computerBalls.includes(userBalls[index])
+			) {
+				baseballScore['BALL'] += 1;
+			}
+		}
+		console.log(baseballScore);
+		return baseballScore;
 	}
 }
 
