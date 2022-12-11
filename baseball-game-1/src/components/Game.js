@@ -30,7 +30,6 @@ class Game {
 				baseballScore['BALL'] += 1;
 			}
 		}
-		console.log(baseballScore);
 		return baseballScore;
 	}
 }

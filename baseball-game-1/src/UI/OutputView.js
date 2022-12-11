@@ -6,21 +6,26 @@ const OutputView = {
 		Console.print(MESSAGE['WELCOME']);
 	},
 
-	printScore(gameReult) {
-		const FORMATTED_SCORE = s;
+	printScore(gameResult) {
+		const FORMATTED_SCORE = this.scorePrintFormatter(gameResult);
+		Console.print(FORMATTED_SCORE);
 	},
 
 	scorePrintFormatter(gameResult) {
-		if (gameReult['STRIKE'] === 3) {
+		if (gameResult['STRIKE'] === 3) {
 			return MESSAGE['SUCCESS'];
 		}
-		if (gameReult['BALL'] === 0 && gameReult['STRIKE'] === 0) {
+		if (gameResult['BALL'] === 0 && gameResult['STRIKE'] === 0) {
 			return MESSAGE['LOST'];
 		}
 		let ballStrike = '';
-		if (gameReult['BALL'] > 0) {
-			ballStrike += gameResult['BALL'] + MESSAGE['BALL'];
+		if (gameResult['BALL'] > 0) {
+			ballStrike += gameResult['BALL'] + MESSAGE['BALL'] + ' ';
 		}
+		if (gameResult['STRIKE'] > 0) {
+			ballStrike += gameResult['STRIKE'] + MESSAGE['STRIKE'];
+		}
+		return ballStrike;
 	},
 };
 module.exports = OutputView;
