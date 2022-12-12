@@ -27,5 +27,9 @@ const OutputView = {
 		}
 		return ballStrike;
 	},
+
+	printError(errorType) {
+		Console.print('[ERROR]');
+	},
 };
 module.exports = OutputView;

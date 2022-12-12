@@ -23,13 +23,11 @@ class App {
 	}
 
 	#generateUserBall(balls) {
-		this.#errorHandler('BALLS', () => {
-			Validator.validUserBalls(balls);
-			const USER_BALLS = balls.split('').map((element) => {
-				return parseInt(element);
-			});
-			return this.#handleScore(USER_BALLS);
+		Validator.validUserBalls(balls);
+		const USER_BALLS = balls.split('').map((element) => {
+			return parseInt(element);
 		});
+		return this.#handleScore(USER_BALLS);
 	}
 
 	#handleScore(userBall) {
@@ -39,8 +37,8 @@ class App {
 	}
 
 	#handleGame(gameResult) {
-		if (gameResult['STRIK'] === 3) {
-			//return this.#queryRetry();
+		if (gameResult['STRIKE'] === 3) {
+			return this.#queryRetry();
 		}
 		return this.#userBallHandler();
 	}
@@ -50,28 +48,32 @@ class App {
 	}
 
 	#handleRetry(retry) {
-		this.#errorHandler('RETRY', () => {
-			Validator.validRetry(retry);
-			if (retry === '1') {
-				return this.#initializeGame();
-			}
-			if (retry === '2') {
-				return InputView.endUI();
-			}
-		});
+		Validator.validRetry(retry);
+		if (retry === '1') {
+			return this.#initializeGame();
+		}
+		if (retry === '2') {
+			return InputView.endUI();
+		}
 	}
 
 	#errorHandler(errorType, callback) {
 		try {
 			callback();
 		} catch (error) {
-			console.log(error);
-			this.#errorResponse(errorType);
+			OutputView.printError(errorType);
+			return InputView.endUI();
+			//this.#errorResponse(errorType);
 		}
 	}
 
 	#errorResponse(errorType) {
-		console.log(errorType);
+		if (errorType === 'BALLS') {
+			return InputView.readBalls.bind(this)(this.#generateUserBall);
+		}
+		if (errorType === 'RETRY') {
+			return InputView.readRetry.bind(this)(this.#queryRetry);
+		}
 	}
 }
 
