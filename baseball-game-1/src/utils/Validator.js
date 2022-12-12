@@ -9,6 +9,12 @@ const Validator = {
 			throw new Error('[ERROR]');
 		}
 	},
+
+	validRetry(retry) {
+		if (retry !== '1' && retry !== '2') {
+			throw new Error('[ERROR]');
+		}
+	},
 };
 
 module.exports = Validator;

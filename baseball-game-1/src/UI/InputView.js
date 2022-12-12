@@ -12,6 +12,10 @@ const InputView = {
 			callback.bind(this)(retry);
 		});
 	},
+
+	endUI() {
+		Console.close();
+	},
 };
 
 module.exports = InputView;

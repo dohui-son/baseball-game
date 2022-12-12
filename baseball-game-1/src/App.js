@@ -55,7 +55,9 @@ class App {
 			if (retry === '1') {
 				return this.#initializeGame();
 			}
-			//return this.#endGame
+			if (retry === '2') {
+				return InputView.endUI();
+			}
 		});
 	}
 
